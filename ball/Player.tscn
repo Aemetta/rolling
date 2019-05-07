@@ -1,0 +1,75 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://ball/Ball.gd" type="Script" id=1]
+[ext_resource path="res://ball/Tilt.gd" type="Script" id=2]
+[ext_resource path="res://ball/follow_camera.gd" type="Script" id=3]
+[ext_resource path="res://ball/Sphere.gd" type="Script" id=4]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.7
+bounce = 0.1
+
+[sub_resource type="CylinderMesh" id=2]
+
+[sub_resource type="SphereShape" id=3]
+
+[sub_resource type="Image" id=8]
+data = {
+"data": PoolByteArray( 0, 0, 0, 255, 255, 255, 0, 0, 0, 255, 255, 255, 255, 255, 255, 0, 0, 0, 255, 255, 255, 0, 0, 0 ),
+"format": "RGB8",
+"height": 2,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="ImageTexture" id=5]
+flags = 0
+flags = 0
+image = SubResource( 8 )
+size = Vector2( 4, 2 )
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_texture = SubResource( 5 )
+roughness = 0.0
+
+[sub_resource type="SphereMesh" id=7]
+
+[node name="Player" type="Spatial"]
+
+[node name="Ball" type="RigidBody" parent="."]
+mass = 0.2
+physics_material_override = SubResource( 1 )
+gravity_scale = 3.0
+script = ExtResource( 1 )
+sensitivity = 0.2
+
+[node name="Tilt" type="Spatial" parent="Ball"]
+script = ExtResource( 2 )
+
+[node name="InterpolatedCamera" type="InterpolatedCamera" parent="Ball/Tilt"]
+transform = Transform( 2, 0, 0, 0, 1.47712, -0.503758, 0, -0.914568, 0.988901, 0, 1.61888, 5.70133 )
+target = NodePath("..")
+script = ExtResource( 3 )
+min_distance = 6.0
+max_distance = 6.0
+max_height = 3.0
+min_height = 3.0
+
+[node name="Mesh" type="MeshInstance" parent="Ball/Tilt"]
+transform = Transform( 0.5, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0 )
+visible = false
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Ball"]
+transform = Transform( 1, 0, 0, 0, 0.600394, 0.799704, 0, -0.799704, 0.600394, 0, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="Sphere" type="MeshInstance" parent="Ball"]
+transform = Transform( 1, 0, 0, 0, 0.600394, 0.799704, 0, -0.799704, 0.600394, 0, 0, 0 )
+material_override = SubResource( 6 )
+use_in_baked_light = true
+mesh = SubResource( 7 )
+material/0 = null
+script = ExtResource( 4 )
+

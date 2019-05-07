@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/checker.png-cdc0f6d1f6e598cc2634ac887f9860a8.image"
+
+[deps]
+
+source_file="res://ball/checker.png"
+dest_files=[ "res://.import/checker.png-cdc0f6d1f6e598cc2634ac887f9860a8.image" ]
+
+[params]
+
